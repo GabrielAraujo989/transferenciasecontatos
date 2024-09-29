@@ -14,7 +14,6 @@ Este é um aplicativo Flutter que permite a realização de transferências e ge
 - **Transferências**
   - Cadastro de transferências com número da conta e valor.
   - Visualização da lista de transferências realizadas.
-  - Exclusão de transferências.
 
 - **Contatos**
   - Cadastro de contatos com nome, CPF, telefone e número da conta.
