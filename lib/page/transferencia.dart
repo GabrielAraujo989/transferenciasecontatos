@@ -1,6 +1,7 @@
 // page/transferencias.dart
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:intl/intl.dart';
 import 'dart:convert'; // Para converter para JSON
 import '../theme.dart'; // Certifique-se de ter seu arquivo de tema
 
@@ -31,16 +32,12 @@ class FormularioTransferencia extends StatelessWidget {
           Editor(
             controlador: _controllerCampoValor,
             rotulo: 'Valor',
-            dica: '0.00',
+            dica: '0,00',
             icone: Icons.monetization_on,
           ),
           ElevatedButton(
             onPressed: () {
-              _criarTransferencia(
-                context,
-                _controllerCampoNumeroConta,
-                _controllerCampoValor,
-              );
+              _criarTransferencia(context);
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Theme.of(context).primaryColor,
@@ -55,16 +52,20 @@ class FormularioTransferencia extends StatelessWidget {
     );
   }
 
-  void _criarTransferencia(
-    BuildContext context,
-    TextEditingController _controllerCampoNumeroConta,
-    TextEditingController _controllerCampoValor,
-  ) {
+  void _criarTransferencia(BuildContext context) {
     final int? numeroConta = int.tryParse(_controllerCampoNumeroConta.text);
-    final double? valor = double.tryParse(_controllerCampoValor.text);
+    final double? valor =
+        double.tryParse(_controllerCampoValor.text.replaceAll(',', '.'));
+
     if (numeroConta != null && valor != null) {
       final transferenciaCriada = Transferencia(valor, numeroConta);
-      Navigator.pop(context, transferenciaCriada);
+      Navigator.pop(
+          context, transferenciaCriada); // Retorna a transferência criada
+    } else {
+      // Exibe um aviso se os dados não forem válidos
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Dados inválidos!')),
+      );
     }
   }
 }
@@ -139,8 +140,8 @@ class _ListaTransferenciaState extends State<ListaTransferencia> {
         onPressed: () {
           _navegarParaFormulario(context);
         },
-        child: const Icon(Icons.add),
         backgroundColor: Theme.of(context).primaryColor,
+        child: const Icon(Icons.add),
       ),
     );
   }
@@ -169,11 +170,19 @@ class ItemTransferencia extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final formatador = NumberFormat.currency(
+      locale: 'pt_BR', // Formatação para o Brasil
+      symbol: 'R\$',
+      decimalDigits: 2,
+    );
+
     return Card(
       child: ListTile(
         leading: const Icon(Icons.monetization_on, color: Colors.green),
-        title: Text(_transferencia.valor.toString()),
-        subtitle: Text(_transferencia.numeroConta.toString()),
+        title: Text(
+            formatador.format(_transferencia.valor)), // Formatação do valor
+        subtitle: Text(
+            'Conta: ${_transferencia.numeroConta}'), // Alterado para incluir 'Conta:'
       ),
     );
   }

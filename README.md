@@ -1,16 +1,30 @@
-# transferenciasecontatos
+# Transferências e Contatos
 
-A new Flutter project.
+## Desenvolvedores
+**Gabriel Araujo de Padua**  
+**Bruno Vinicius de Laia Silva**
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## Descrição
+Este é um aplicativo Flutter que permite a realização de transferências e gerenciamento de contatos. O projeto utiliza a biblioteca `shared_preferences` para persistir dados, garantindo que as informações sejam salvas mesmo após o fechamento do aplicativo.
 
-A few resources to get you started if this is your first Flutter project:
+## Funcionalidades
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- **Transferências**
+  - Cadastro de transferências com número da conta e valor.
+  - Visualização da lista de transferências realizadas.
+  - Exclusão de transferências.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- **Contatos**
+  - Cadastro de contatos com nome, CPF, telefone e número da conta.
+  - Visualização da lista de contatos cadastrados.
+
+## Tecnologias Utilizadas
+- **Flutter**: Framework para desenvolvimento de aplicações móveis.
+- **Dart**: Linguagem de programação utilizada no Flutter.
+- **Shared Preferences**: Biblioteca para persistência de dados.
+- **Intl**: Biblioteca para formatação de números e datas.
+
+## Estrutura do Projeto
+
